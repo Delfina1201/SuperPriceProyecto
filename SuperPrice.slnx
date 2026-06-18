@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="SuperPrice.BE/SuperPrice.BE.csproj" />
+  <Project Path="SuperPrice.BLL/SuperPrice.BLL.csproj" />
+  <Project Path="SuperPrice.DAL/SuperPrice.DAL.csproj" />
+  <Project Path="SuperPrice/SuperPrice.UI.csproj" />
+</Solution>
