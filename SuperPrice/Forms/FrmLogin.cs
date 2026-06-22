@@ -1,4 +1,8 @@
-﻿using System;
+﻿using SuperPrice.BE;
+using SuperPrice.BE.Entidades;
+using SuperPrice.DAL;
+using SuperPrice.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,8 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SuperPrice.Forms;
-using SuperPrice.DAL;
+using SuperPrice.BLL.Patrones;
 
 namespace SuperPrice.Forms
 {
@@ -20,19 +23,22 @@ namespace SuperPrice.Forms
             { }
         }
 
-       
+
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             UsuarioDAL usuarioDAL = new UsuarioDAL();
 
-            bool acceso =
-                usuarioDAL.ValidarUsuario(
+            Usuario usuario =
+                usuarioDAL.Login(
                     txtUsuario.Text,
                     txtPassword.Text);
 
-            if (acceso)
+            if (usuario != null)
             {
-                FrmPrincipal principal = new FrmPrincipal();
+                Sesion.ObtenerInstancia().Login(usuario);
+
+                FrmPrincipal principal =
+                    new FrmPrincipal();
 
                 principal.Show();
 
@@ -44,7 +50,7 @@ namespace SuperPrice.Forms
                     "Usuario o contraseña incorrectos");
             }
         }
-        
+
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {

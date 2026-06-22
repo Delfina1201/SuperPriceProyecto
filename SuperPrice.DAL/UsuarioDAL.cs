@@ -1,4 +1,7 @@
-﻿using System.Data.SqlClient;
+﻿using SuperPrice.BE;
+using SuperPrice.BE.Entidades;
+using System;
+using System.Data.SqlClient;
 
 namespace SuperPrice.DAL
 {
@@ -6,18 +9,18 @@ namespace SuperPrice.DAL
     {
         Conexion conexion = new Conexion();
 
-        public bool ValidarUsuario(string usuario, string password)
+        public Usuario Login(string usuario, string password)
         {
             using (SqlConnection cn = conexion.ObtenerConexion())
             {
                 cn.Open();
 
                 string consulta =
-                    @"SELECT COUNT(*)
-                      FROM Usuarios
-                      WHERE NombreUsuario = @usuario
-                      AND Password = @password
-                      AND Activo = 1";
+                @"SELECT *
+                  FROM Usuarios
+                  WHERE NombreUsuario = @usuario
+                  AND Password = @password
+                  AND Activo = 1";
 
                 SqlCommand cmd =
                     new SqlCommand(consulta, cn);
@@ -25,10 +28,28 @@ namespace SuperPrice.DAL
                 cmd.Parameters.AddWithValue("@usuario", usuario);
                 cmd.Parameters.AddWithValue("@password", password);
 
-                int cantidad =
-                    (int)cmd.ExecuteScalar();
+                SqlDataReader reader = cmd.ExecuteReader();
 
-                return cantidad > 0;
+                if (reader.Read())
+                {
+                    Usuario u = new Usuario();
+
+                    u.IdUsuario =
+                        Convert.ToInt32(reader["IdUsuario"]);
+
+                    u.NombreUsuario =
+                        reader["NombreUsuario"].ToString();
+
+                    u.Password =
+                        reader["Password"].ToString();
+
+                    u.Activo =
+                        Convert.ToBoolean(reader["Activo"]);
+
+                    return u;
+                }
+
+                return null;
             }
         }
     }
