@@ -1,6 +1,6 @@
 <Solution>
-  <Project Path="SuperPrice.BE/SuperPrice.BE.csproj" />
-  <Project Path="SuperPrice.BLL/SuperPrice.BLL.csproj" />
-  <Project Path="SuperPrice.DAL/SuperPrice.DAL.csproj" />
-  <Project Path="SuperPrice/SuperPrice.UI.csproj" />
+  <Project Path="SuperPrice.BE/SuperPrice.BE.csproj" Id="0f7aff34-e40e-4a24-9c91-09ee092a046a" />
+  <Project Path="SuperPrice.BLL/SuperPrice.BLL.csproj" Id="1e31251b-5244-438b-9e09-2c9063e54f3c" />
+  <Project Path="SuperPrice.DAL/SuperPrice.DAL.csproj" Id="cf221e32-9452-4392-94e5-f6264e8191e3" />
+  <Project Path="SuperPrice/SuperPrice.UI.csproj" Id="6c53e25a-325a-4467-81bc-006cbfa07368" />
 </Solution>
