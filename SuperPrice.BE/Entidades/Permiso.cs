@@ -1,15 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace SuperPrice.BE.Entidades
+namespace SuperPrice.BE.Seguridad
 {
-    public class Permiso
+    public class PermisoCompuesto : Permiso
     {
-        public int IdPermiso { get; set; }
+        public List<Permiso> Hijos { get; set; }
 
-        public string Nombre { get; set; }
+        public PermisoCompuesto()
+        {
+            Hijos = new List<Permiso>();
+        }
+
+        public override void Agregar(Permiso permiso)
+        {
+            Hijos.Add(permiso);
+        }
+
+        public override void Quitar(Permiso permiso)
+        {
+            Hijos.Remove(permiso);
+        }
     }
 }

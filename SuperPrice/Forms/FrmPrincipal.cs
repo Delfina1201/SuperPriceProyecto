@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SuperPrice.BE.Seguridad;
+using SuperPrice.BLL.Patrones;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SuperPrice.BLL.Patrones;
 
 
 namespace SuperPrice.Forms
@@ -26,6 +27,26 @@ namespace SuperPrice.Forms
             Sesion.ObtenerInstancia()
               .UsuarioLogueado
               .NombreUsuario);
+
+            PermisoSimple crearProducto = new PermisoSimple();
+            crearProducto.Codigo = "PP001";
+            crearProducto.Nombre = "Crear Producto";
+
+            PermisoSimple modificarProducto = new PermisoSimple();
+            modificarProducto.Codigo = "PP002";
+            modificarProducto.Nombre = "Modificar Producto";
+
+            PermisoCompuesto gestionProductos = new PermisoCompuesto();
+            gestionProductos.Codigo = "GE051";
+            gestionProductos.Nombre = "Gestión Productos";
+
+            gestionProductos.Agregar(crearProducto);
+            gestionProductos.Agregar(modificarProducto);
+
+            MessageBox.Show(
+                gestionProductos.Nombre +
+                "\nCantidad de permisos: " +
+                gestionProductos.Hijos.Count);
 
         }
 

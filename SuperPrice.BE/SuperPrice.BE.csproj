@@ -45,6 +45,10 @@
     <Compile Include="Entidades\Permiso.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seguridad\Perfil.cs" />
+    <Compile Include="Seguridad\Permiso.cs" />
+    <Compile Include="Seguridad\PermisoCompuesto.cs" />
+    <Compile Include="Seguridad\PermisoSimple.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
