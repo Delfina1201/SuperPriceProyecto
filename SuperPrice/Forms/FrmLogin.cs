@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SuperPrice.Forms;
+using SuperPrice.DAL;
 
 namespace SuperPrice.Forms
 {
@@ -16,12 +17,20 @@ namespace SuperPrice.Forms
         public FrmLogin()
         {
             InitializeComponent();
+            { }
         }
 
+       
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            if (txtUsuario.Text == "admin" &&
-                txtPassword.Text == "123")
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+
+            bool acceso =
+                usuarioDAL.ValidarUsuario(
+                    txtUsuario.Text,
+                    txtPassword.Text);
+
+            if (acceso)
             {
                 FrmPrincipal principal = new FrmPrincipal();
 
@@ -31,9 +40,11 @@ namespace SuperPrice.Forms
             }
             else
             {
-                MessageBox.Show("Usuario o contraseña incorrectos");
+                MessageBox.Show(
+                    "Usuario o contraseña incorrectos");
             }
         }
+        
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {

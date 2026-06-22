@@ -97,6 +97,10 @@
       <Project>{1e31251b-5244-438b-9e09-2c9063e54f3c}</Project>
       <Name>SuperPrice.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SuperPrice.DAL\SuperPrice.DAL.csproj">
+      <Project>{cf221e32-9452-4392-94e5-f6264e8191e3}</Project>
+      <Name>SuperPrice.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
