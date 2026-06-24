@@ -172,5 +172,89 @@ namespace SuperPrice.DAL.Seguridad
 
             return tabla;
         }
+
+        public List<Permiso> ObtenerPermisosPorPerfil(
+            int idPerfil)
+        {
+            List<Permiso> permisosPerfil =
+                new List<Permiso>();
+
+            List<Permiso> todos =
+                ObtenerPermisos();
+
+            Conexion conexion = new Conexion();
+
+            using (SqlConnection cn =
+                   conexion.ObtenerConexion())
+            {
+                cn.Open();
+
+                string consulta =
+                    @"SELECT IdPermiso
+              FROM PerfilPermiso
+              WHERE IdPerfil = @idPerfil";
+
+                SqlCommand cmd =
+                    new SqlCommand(
+                        consulta,
+                        cn);
+
+                cmd.Parameters.AddWithValue(
+                    "@idPerfil",
+                    idPerfil);
+
+                SqlDataReader reader =
+                    cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int idPermiso =
+                        Convert.ToInt32(
+                            reader["IdPermiso"]);
+
+                    Permiso permiso =
+                        BuscarPermiso(
+                            todos,
+                            idPermiso);
+
+                    if (permiso != null)
+                    {
+                        permisosPerfil.Add(
+                            permiso);
+                    }
+                }
+            }
+
+            return permisosPerfil;
+        }
+
+        private Permiso BuscarPermiso(
+            List<Permiso> permisos,
+            int id)
+        {
+            foreach (Permiso permiso in permisos)
+            {
+                if (permiso.Id == id)
+                {
+                    return permiso;
+                }
+
+                if (permiso is PermisoCompuesto compuesto)
+                {
+                    Permiso encontrado =
+                        BuscarPermiso(
+                            compuesto.Hijos,
+                            id);
+
+                    if (encontrado != null)
+                    {
+                        return encontrado;
+                    }
+                }
+            }
+
+            return null;
+        }
     }
+
 }

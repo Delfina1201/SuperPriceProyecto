@@ -23,12 +23,19 @@ namespace SuperPrice.Forms
                 Sesion.ObtenerInstancia()
                     .UsuarioLogueado
                     .NombreUsuario
-                 +
+             +
                 "\nPerfil: " +
-                 Sesion.ObtenerInstancia()
+                Sesion.ObtenerInstancia()
                     .UsuarioLogueado
                     .Perfil
-                    .Nombre);
+                    .Nombre
+             +
+                "\nPermisos: " +
+                Sesion.ObtenerInstancia()
+                    .UsuarioLogueado
+                    .Perfil
+                    .Permisos
+                    .Count);
 
             PermisoDAL dal = new PermisoDAL();
 

@@ -2,6 +2,7 @@
 using SuperPrice.BE.Seguridad;
 using System;
 using System.Data.SqlClient;
+using SuperPrice.DAL.Seguridad;
 
 namespace SuperPrice.DAL.Seguridad
 {
@@ -68,6 +69,13 @@ namespace SuperPrice.DAL.Seguridad
 
                     perfil.Nombre =
                         "Administrador";
+
+                    PermisoDAL permisoDAL =
+                        new PermisoDAL();
+
+                    perfil.Permisos =
+                        permisoDAL.ObtenerPermisosPorPerfil(
+                            perfil.Id);
 
                     usuario.Perfil = perfil;
 
