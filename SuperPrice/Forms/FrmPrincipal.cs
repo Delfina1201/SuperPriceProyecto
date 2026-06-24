@@ -43,10 +43,15 @@ namespace SuperPrice.Forms
             gestionProductos.Agregar(crearProducto);
             gestionProductos.Agregar(modificarProducto);
 
-            MessageBox.Show(
-                gestionProductos.Nombre +
-                "\nCantidad de permisos: " +
-                gestionProductos.Hijos.Count);
+            treeView1.Nodes.Clear();
+
+            TreeNode raiz = new TreeNode("Permisos");
+
+            treeView1.Nodes.Add(raiz);
+
+            CargarNodo(raiz, gestionProductos);
+
+            treeView1.ExpandAll();
 
         }
 
@@ -66,6 +71,22 @@ namespace SuperPrice.Forms
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void CargarNodo(TreeNode nodoPadre, Permiso permiso)
+        {
+            TreeNode nodo = new TreeNode(
+                permiso.Codigo + " - " + permiso.Nombre);
+
+            nodoPadre.Nodes.Add(nodo);
+
+            if (permiso is PermisoCompuesto compuesto)
+            {
+                foreach (Permiso hijo in compuesto.Hijos)
+                {
+                    CargarNodo(nodo, hijo);
+                }
+            }
         }
     }
 }
