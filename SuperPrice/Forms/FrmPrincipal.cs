@@ -1,15 +1,8 @@
 ﻿using SuperPrice.BE.Seguridad;
 using SuperPrice.BLL.Patrones;
+using SuperPrice.BLL.Seguridad;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 
 namespace SuperPrice.Forms
 {
@@ -23,25 +16,14 @@ namespace SuperPrice.Forms
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
             MessageBox.Show(
-            "Usuario logueado: " +
-            Sesion.ObtenerInstancia()
-              .UsuarioLogueado
-              .NombreUsuario);
+                "Usuario logueado: " +
+                Sesion.ObtenerInstancia()
+                      .UsuarioLogueado
+                      .NombreUsuario);
 
-            PermisoSimple crearProducto = new PermisoSimple();
-            crearProducto.Codigo = "PP001";
-            crearProducto.Nombre = "Crear Producto";
+            PermisoBLL permisoBLL = new PermisoBLL();
 
-            PermisoSimple modificarProducto = new PermisoSimple();
-            modificarProducto.Codigo = "PP002";
-            modificarProducto.Nombre = "Modificar Producto";
-
-            PermisoCompuesto gestionProductos = new PermisoCompuesto();
-            gestionProductos.Codigo = "GE051";
-            gestionProductos.Nombre = "Gestión Productos";
-
-            gestionProductos.Agregar(crearProducto);
-            gestionProductos.Agregar(modificarProducto);
+            var permisos = permisoBLL.ObtenerPermisos();
 
             treeView1.Nodes.Clear();
 
@@ -49,28 +31,12 @@ namespace SuperPrice.Forms
 
             treeView1.Nodes.Add(raiz);
 
-            CargarNodo(raiz, gestionProductos);
+            foreach (Permiso permiso in permisos)
+            {
+                CargarNodo(raiz, permiso);
+            }
 
             treeView1.ExpandAll();
-
-        }
-
-        private void cerrarSesiónToolStripMenuItem_Click(
-        object sender,
-        EventArgs e)
-        {
-            Sesion.ObtenerInstancia().Logout();
-
-            FrmLogin login = new FrmLogin();
-
-            login.Show();
-
-            this.Close();
-        }
-
-        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
 
         private void CargarNodo(TreeNode nodoPadre, Permiso permiso)
@@ -87,6 +53,26 @@ namespace SuperPrice.Forms
                     CargarNodo(nodo, hijo);
                 }
             }
+        }
+
+        private void cerrarSesiónToolStripMenuItem_Click(
+            object sender,
+            EventArgs e)
+        {
+            Sesion.ObtenerInstancia().Logout();
+
+            FrmLogin login = new FrmLogin();
+
+            login.Show();
+
+            this.Close();
+        }
+
+        private void salirToolStripMenuItem_Click(
+            object sender,
+            EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

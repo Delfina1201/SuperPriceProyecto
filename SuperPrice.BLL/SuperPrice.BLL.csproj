@@ -43,11 +43,16 @@
   <ItemGroup>
     <Compile Include="Patrones\Sesion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seguridad\PermisoBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuperPrice.BE\SuperPrice.BE.csproj">
       <Project>{0f7aff34-e40e-4a24-9c91-09ee092a046a}</Project>
       <Name>SuperPrice.BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperPrice.DAL\SuperPrice.DAL.csproj">
+      <Project>{cf221e32-9452-4392-94e5-f6264e8191e3}</Project>
+      <Name>SuperPrice.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
