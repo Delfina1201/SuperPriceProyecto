@@ -1,8 +1,11 @@
 ﻿using SuperPrice.BE.Seguridad;
 using SuperPrice.BLL.Patrones;
 using SuperPrice.BLL.Seguridad;
+using SuperPrice.DAL.Seguridad;
 using System;
+using System.Data;
 using System.Windows.Forms;
+
 
 namespace SuperPrice.Forms
 {
@@ -20,6 +23,18 @@ namespace SuperPrice.Forms
                 Sesion.ObtenerInstancia()
                       .UsuarioLogueado
                       .NombreUsuario);
+
+            PermisoDAL dal = new PermisoDAL();
+
+            dal.ProbarConexion();
+
+            DataTable tabla = dal.ObtenerTablaPermisos();
+
+            MessageBox.Show(
+                "Cantidad de permisos: " +
+                tabla.Rows.Count);
+
+            MessageBox.Show("Conexión exitosa");
 
             PermisoBLL permisoBLL = new PermisoBLL();
 

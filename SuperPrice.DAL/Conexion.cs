@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlClient;
 
+
 namespace SuperPrice.DAL
 {
     public class Conexion
