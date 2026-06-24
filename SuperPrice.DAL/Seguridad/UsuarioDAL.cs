@@ -1,4 +1,6 @@
 ﻿using SuperPrice.BE.Entidades;
+using SuperPrice.BE.Seguridad;
+using System;
 using System.Data.SqlClient;
 
 namespace SuperPrice.DAL.Seguridad
@@ -57,6 +59,17 @@ namespace SuperPrice.DAL.Seguridad
 
                     usuario.Activo =
                         (bool)reader["Activo"];
+
+                    Perfil perfil = new Perfil();
+
+                    perfil.Id =
+                        Convert.ToInt32(
+                            reader["IdPerfil"]);
+
+                    perfil.Nombre =
+                        "Administrador";
+
+                    usuario.Perfil = perfil;
 
                     return usuario;
                 }

@@ -19,10 +19,16 @@ namespace SuperPrice.Forms
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
             MessageBox.Show(
-                "Usuario logueado: " +
+                "Usuario: " +
                 Sesion.ObtenerInstancia()
-                      .UsuarioLogueado
-                      .NombreUsuario);
+                    .UsuarioLogueado
+                    .NombreUsuario
+                 +
+                "\nPerfil: " +
+                 Sesion.ObtenerInstancia()
+                    .UsuarioLogueado
+                    .Perfil
+                    .Nombre);
 
             PermisoDAL dal = new PermisoDAL();
 
