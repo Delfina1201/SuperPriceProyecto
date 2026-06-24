@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SuperPrice.BLL.Patrones;
+using SuperPrice.BLL.Seguridad;
 
 namespace SuperPrice.Forms
 {
@@ -26,16 +27,19 @@ namespace SuperPrice.Forms
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            UsuarioDAL usuarioDAL = new UsuarioDAL();
+           
+            UsuarioBLL usuarioBLL =
+                new UsuarioBLL();
 
             Usuario usuario =
-                usuarioDAL.Login(
+                usuarioBLL.Login(
                     txtUsuario.Text,
                     txtPassword.Text);
 
             if (usuario != null)
             {
-                Sesion.ObtenerInstancia().Login(usuario);
+                Sesion.ObtenerInstancia()
+                      .Login(usuario);
 
                 FrmPrincipal principal =
                     new FrmPrincipal();
