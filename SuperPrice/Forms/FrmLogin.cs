@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SuperPrice.BLL.Patrones;
 using SuperPrice.BLL.Seguridad;
+using SuperPrice.BE.Seguridad;
 
 namespace SuperPrice.Forms
 {
@@ -27,7 +28,6 @@ namespace SuperPrice.Forms
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-           
             UsuarioBLL usuarioBLL =
                 new UsuarioBLL();
 
@@ -36,10 +36,31 @@ namespace SuperPrice.Forms
                     txtUsuario.Text,
                     txtPassword.Text);
 
+            BitacoraBLL bitacoraBLL =
+                new BitacoraBLL();
+
             if (usuario != null)
             {
                 Sesion.ObtenerInstancia()
                       .Login(usuario);
+
+                Bitacora bitacora =
+                    new Bitacora();
+
+                bitacora.FechaHora =
+                    DateTime.Now;
+
+                bitacora.Usuario =
+                    usuario.NombreUsuario;
+
+                bitacora.Evento =
+                    "Login";
+
+                bitacora.Descripcion =
+                    "Inicio de sesión exitoso.";
+
+                bitacoraBLL.Registrar(
+                    bitacora);
 
                 FrmPrincipal principal =
                     new FrmPrincipal();
@@ -50,6 +71,24 @@ namespace SuperPrice.Forms
             }
             else
             {
+                Bitacora bitacora =
+                    new Bitacora();
+
+                bitacora.FechaHora =
+                    DateTime.Now;
+
+                bitacora.Usuario =
+                    txtUsuario.Text;
+
+                bitacora.Evento =
+                    "Login Fallido";
+
+                bitacora.Descripcion =
+                    "Usuario o contraseña incorrectos.";
+
+                bitacoraBLL.Registrar(
+                    bitacora);
+
                 MessageBox.Show(
                     "Usuario o contraseña incorrectos");
             }
