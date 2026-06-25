@@ -18,16 +18,31 @@ namespace SuperPrice.Forms
 
         private void CargarBitacora()
         {
+            MessageBox.Show(
+    "Usuario: " + txtUsuario.Text +
+    "\nEvento: " + txtEvento.Text);
+
+            MessageBox.Show("Evento = [" + txtEvento.Text + "]");
+
             BitacoraBLL bitacoraBLL =
                 new BitacoraBLL();
 
             dgvBitacora.DataSource =
-                bitacoraBLL.ObtenerBitacora();
+                bitacoraBLL.ObtenerBitacora(
+                    txtUsuario.Text,
+                    txtEvento.Text,
+                    dtpDesde.Value.Date,
+                    dtpHasta.Value.Date.AddDays(1).AddSeconds(-1));
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             CargarBitacora();
+        }
+
+        private void txtEvento_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

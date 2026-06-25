@@ -90,6 +90,7 @@
             this.txtEvento.Name = "txtEvento";
             this.txtEvento.Size = new System.Drawing.Size(100, 20);
             this.txtEvento.TabIndex = 5;
+            this.txtEvento.TextChanged += new System.EventHandler(this.txtEvento_TextChanged);
             // 
             // dtpDesde
             // 

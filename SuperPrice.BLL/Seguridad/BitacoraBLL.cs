@@ -20,12 +20,16 @@ namespace SuperPrice.BLL.Seguridad
                 bitacora);
         }
 
-        public DataTable ObtenerBitacora()
-        {   
+        public DataTable ObtenerBitacora(string usuario, string evento, DateTime desde, DateTime hasta)
+        {
             BitacoraDAL bitacoraDAL =
                 new BitacoraDAL();
 
-            return bitacoraDAL.ObtenerBitacora();
+            return bitacoraDAL.ObtenerBitacora(
+                usuario,
+                evento,
+                desde,
+                hasta);
         }
     }
 }

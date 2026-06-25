@@ -57,7 +57,7 @@ namespace SuperPrice.DAL.Seguridad
             }
         }
 
-        public DataTable ObtenerBitacora()
+        public DataTable ObtenerBitacora(string usuario, string evento, DateTime desde, DateTime hasta)
         {
             Conexion conexion = new Conexion();
 
@@ -69,23 +69,43 @@ namespace SuperPrice.DAL.Seguridad
                 cn.Open();
 
                 string consulta =
-                    @"SELECT
-                FechaHora,
-                Usuario,
-                Evento,
-                Descripcion
-              FROM Bitacora
-              ORDER BY FechaHora DESC";
+                    @"SELECT *
+                    FROM Bitacora
+                    WHERE Usuario LIKE @Usuario
+                    AND Evento LIKE @Evento
+                    AND FechaHora BETWEEN @Desde AND @Hasta
+                    ORDER BY FechaHora DESC";
 
-                SqlDataAdapter da =
-                    new SqlDataAdapter(
+                SqlCommand cmd =
+                    new SqlCommand(
                         consulta,
                         cn);
+
+                cmd.Parameters.AddWithValue(
+                    "@Usuario",
+                    "%" + usuario + "%");
+
+                cmd.Parameters.AddWithValue(
+                    "@Evento",
+                    "%" + evento + "%");
+
+                cmd.Parameters.AddWithValue(
+                    "@Desde",
+                    desde);
+
+                cmd.Parameters.AddWithValue(
+                    "@Hasta",
+                    hasta);
+
+
+                SqlDataAdapter da =
+                    new SqlDataAdapter(cmd);
 
                 da.Fill(tabla);
             }
 
             return tabla;
         }
+    
     }
 }
