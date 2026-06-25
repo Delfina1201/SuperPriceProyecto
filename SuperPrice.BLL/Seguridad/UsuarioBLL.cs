@@ -12,9 +12,12 @@ namespace SuperPrice.BLL.Seguridad
             UsuarioDAL usuarioDAL =
                 new UsuarioDAL();
 
+            string passwordEncriptada =
+                Encriptador.CalcularHash(password);
+
             return usuarioDAL.ObtenerUsuario(
                 nombreUsuario,
-                password);
+                passwordEncriptada);
         }
     }
 }

@@ -83,13 +83,35 @@ namespace SuperPrice.Forms
             }
         }
 
-        private void cerrarSesiónToolStripMenuItem_Click(
-            object sender,
-            EventArgs e)
+        private void cerrarSesiónToolStripMenuItem_Click( object sender,EventArgs e)
         {
+            BitacoraBLL bitacoraBLL =
+                new BitacoraBLL();
+
+            Bitacora bitacora =
+                new Bitacora();
+
+            bitacora.FechaHora =
+                DateTime.Now;
+
+            bitacora.Usuario =
+                Sesion.ObtenerInstancia()
+                      .UsuarioLogueado
+                      .NombreUsuario;
+
+            bitacora.Evento =
+                "Logout";
+
+            bitacora.Descripcion =
+                "Cierre de sesión.";
+
+            bitacoraBLL.Registrar(
+                bitacora);
+
             Sesion.ObtenerInstancia().Logout();
 
-            FrmLogin login = new FrmLogin();
+            FrmLogin login =
+                new FrmLogin();
 
             login.Show();
 
@@ -101,6 +123,14 @@ namespace SuperPrice.Forms
             EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void bitacoraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmBitacora frm =
+                new FrmBitacora();
+
+            frm.ShowDialog();
         }
     }
 }

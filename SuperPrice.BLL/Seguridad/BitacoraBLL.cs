@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SuperPrice.BE.Seguridad;
+using SuperPrice.DAL.Seguridad;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SuperPrice.BE.Seguridad;
-using SuperPrice.DAL.Seguridad;
 
 namespace SuperPrice.BLL.Seguridad
 {
@@ -17,6 +18,14 @@ namespace SuperPrice.BLL.Seguridad
 
             bitacoraDAL.Registrar(
                 bitacora);
+        }
+
+        public DataTable ObtenerBitacora()
+        {   
+            BitacoraDAL bitacoraDAL =
+                new BitacoraDAL();
+
+            return bitacoraDAL.ObtenerBitacora();
         }
     }
 }
