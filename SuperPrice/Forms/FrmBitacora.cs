@@ -18,12 +18,6 @@ namespace SuperPrice.Forms
 
         private void CargarBitacora()
         {
-            MessageBox.Show(
-    "Usuario: " + txtUsuario.Text +
-    "\nEvento: " + txtEvento.Text);
-
-            MessageBox.Show("Evento = [" + txtEvento.Text + "]");
-
             BitacoraBLL bitacoraBLL =
                 new BitacoraBLL();
 
