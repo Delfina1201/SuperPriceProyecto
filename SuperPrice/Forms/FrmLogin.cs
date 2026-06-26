@@ -14,16 +14,35 @@ using System.Windows.Forms;
 using SuperPrice.BLL.Patrones;
 using SuperPrice.BLL.Seguridad;
 using SuperPrice.BE.Seguridad;
+using SuperPrice.BLL.Idiomas;
 
 namespace SuperPrice.Forms
 {
-    public partial class FrmLogin : Form
+    public partial class FrmLogin : Form, IObserver
     {
         public FrmLogin()
         {
             InitializeComponent();
-            { }
+
+            Traductor.ObtenerInstancia().Suscribir(this);
+
+            ActualizarIdioma();
         }
+
+        public void ActualizarIdioma()
+        {
+            if (Traductor.ObtenerInstancia().IdiomaActual.Nombre == "Español")
+            {
+                btnIngresar.Text = "Ingresar";
+                this.Text = "Iniciar sesión";
+            }
+            else
+            {
+                btnIngresar.Text = "Login";
+                this.Text = "Log In";
+            }
+        }
+
 
 
         private void btnIngresar_Click(object sender, EventArgs e)

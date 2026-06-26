@@ -5,15 +5,43 @@ using SuperPrice.DAL.Seguridad;
 using System;
 using System.Data;
 using System.Windows.Forms;
-
+using SuperPrice.BLL.Idiomas;
 
 namespace SuperPrice.Forms
 {
-    public partial class FrmPrincipal : Form
+    public partial class FrmPrincipal : Form, IObserver
     {
         public FrmPrincipal()
         {
             InitializeComponent();
+
+            Traductor.ObtenerInstancia().Suscribir(this);
+
+            ActualizarIdioma();
+        }
+
+        public void ActualizarIdioma()
+        {
+            if (Traductor.ObtenerInstancia().IdiomaActual.Nombre == "Español")
+            {
+                archivoToolStripMenuItem.Text = "Archivo";
+                gestiónToolStripMenuItem.Text = "Gestión";
+                ventasToolStripMenuItem.Text = "Ventas";
+                seguridadToolStripMenuItem.Text = "Seguridad";
+                idiomaToolStripMenuItem.Text = "Idioma";
+                españolToolStripMenuItem.Text = "Español";
+                englishToolStripMenuItem.Text = "English";
+            }
+            else
+            {
+                archivoToolStripMenuItem.Text = "File";
+                gestiónToolStripMenuItem.Text = "Management";
+                ventasToolStripMenuItem.Text = "Sales";
+                seguridadToolStripMenuItem.Text = "Security";
+                idiomaToolStripMenuItem.Text = "Language";
+                españolToolStripMenuItem.Text = "Spanish";
+                englishToolStripMenuItem.Text = "English";
+            }
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -83,7 +111,7 @@ namespace SuperPrice.Forms
             }
         }
 
-        private void cerrarSesiónToolStripMenuItem_Click( object sender,EventArgs e)
+        private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BitacoraBLL bitacoraBLL =
                 new BitacoraBLL();
@@ -131,6 +159,26 @@ namespace SuperPrice.Forms
                 new FrmBitacora();
 
             frm.ShowDialog();
+        }
+
+        private void españolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Traductor.ObtenerInstancia().CambiarIdioma(
+                new Idioma
+                {
+                    Id = 1,
+                    Nombre = "Español"
+                });
+        }
+
+        private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Traductor.ObtenerInstancia().CambiarIdioma(
+                new Idioma
+                {
+                    Id = 2,
+                    Nombre = "English"
+                });
         }
     }
 }
