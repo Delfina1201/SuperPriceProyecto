@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SuperPrice.Forms;
-
+using SuperPrice.BLL.Seguridad;
 
 namespace SuperPrice
 {
@@ -18,6 +15,15 @@ namespace SuperPrice
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            VerificadorIntegridad verificador = new VerificadorIntegridad();
+
+            if (!verificador.Verificar())
+            {
+                MessageBox.Show("Se detectó un error en la integridad de la base de datos.");
+                return;
+            }
+
             Application.Run(new FrmLogin());
         }
     }

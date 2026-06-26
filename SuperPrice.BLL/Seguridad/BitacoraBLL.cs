@@ -1,11 +1,7 @@
 ﻿using SuperPrice.BE.Seguridad;
 using SuperPrice.DAL.Seguridad;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperPrice.BLL.Seguridad
 {
@@ -16,11 +12,20 @@ namespace SuperPrice.BLL.Seguridad
             BitacoraDAL bitacoraDAL =
                 new BitacoraDAL();
 
-            bitacoraDAL.Registrar(
-                bitacora);
+            bitacoraDAL.Registrar(bitacora);
+
+            // Actualiza el DVV después de guardar la bitácora
+            DVVManager dvvManager =
+                new DVVManager();
+
+            dvvManager.ActualizarDVVBitacora();
         }
 
-        public DataTable ObtenerBitacora(string usuario, string evento, DateTime desde, DateTime hasta)
+        public DataTable ObtenerBitacora(
+            string usuario,
+            string evento,
+            DateTime desde,
+            DateTime hasta)
         {
             BitacoraDAL bitacoraDAL =
                 new BitacoraDAL();

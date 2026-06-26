@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SuperPrice.DAL.Seguridad
 {
     public class BitacoraDAL
@@ -20,17 +21,28 @@ namespace SuperPrice.DAL.Seguridad
             {
                 cn.Open();
 
+                string datos =
+                    bitacora.FechaHora.ToString("yyyyMMddHHmmss") +
+                    bitacora.Usuario +
+                    bitacora.Evento +
+                    bitacora.Descripcion;
+
+                string dvh =
+                    DigitoVerificador.CalcularDVH(datos);
+
                 string consulta =
                     @"INSERT INTO Bitacora
-                      (FechaHora,
-                       Usuario,
-                       Evento,
-                       Descripcion)
-                      VALUES
-                      (@FechaHora,
-                       @Usuario,
-                       @Evento,
-                       @Descripcion)";
+              (FechaHora,
+               Usuario,
+               Evento,
+               Descripcion,
+               DVH)
+              VALUES
+              (@FechaHora,
+               @Usuario,
+               @Evento,
+               @Descripcion,
+               @DVH)";
 
                 SqlCommand cmd =
                     new SqlCommand(
@@ -53,7 +65,12 @@ namespace SuperPrice.DAL.Seguridad
                     "@Descripcion",
                     bitacora.Descripcion);
 
+                cmd.Parameters.AddWithValue(
+                    "@DVH",
+                    dvh);
+
                 cmd.ExecuteNonQuery();
+
             }
         }
 

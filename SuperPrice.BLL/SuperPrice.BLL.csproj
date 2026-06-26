@@ -49,9 +49,11 @@
     <Compile Include="Patrones\Sesion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seguridad\BitacoraBLL.cs" />
+    <Compile Include="Seguridad\DVVManager.cs" />
     <Compile Include="Seguridad\Encriptador.cs" />
     <Compile Include="Seguridad\PermisoBLL.cs" />
     <Compile Include="Seguridad\UsuarioBLL.cs" />
+    <Compile Include="Seguridad\VerificadorIntegridad.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuperPrice.BE\SuperPrice.BE.csproj">
